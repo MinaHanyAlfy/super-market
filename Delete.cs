@@ -81,18 +81,20 @@ namespace SuperMarket
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-            code = textBox5.Text;
-            name = textBox1.Text;
-            count = int.Parse(textBox2.Text);
-            kind = textBox4.Text;
-            price = double.Parse(textBox3.Text);
-            con.Open();
-            cmd = new OleDbCommand("delete from product where ID= @id", con);
-            cmd.Parameters.AddWithValue("@id", code);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("تم الحذف بنجاح", "Congrats");
-            con.Close();
+            try {
+                code = textBox5.Text;
+                name = textBox1.Text;
+                count = int.Parse(textBox2.Text);
+                kind = textBox4.Text;
+                price = double.Parse(textBox3.Text);
+                con.Open();
+                cmd = new OleDbCommand("delete from product where ID= @id", con);
+                cmd.Parameters.AddWithValue("@id", code);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("تم الحذف بنجاح", "Congrats");
+                con.Close();
+            }
+            catch (Exception) { MessageBox.Show("حدث خطأ في عملية الحذف يرجي اعادة تشغيل البرنامج"); }
         }
     }
 }

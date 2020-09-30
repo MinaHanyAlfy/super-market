@@ -40,47 +40,56 @@ namespace SuperMarket
 
         private void button1_Click(object sender, EventArgs e)
         {
-          //  if (textBox4.Text ) 
-
-             
-            
-            
-            //return values
-            
-            
-           
-        }
         
-
+        }
         private void button2_Click(object sender, EventArgs e)
         {
-            code = textBox5.Text;
-            name = textBox1.Text;
-            count = int.Parse(textBox2.Text);
-            kind = textBox4.Text;
-            price = double.Parse(textBox3.Text);
-            con.Open();
-            cmd = new OleDbCommand("update product set prodname=@name, numofprod=@count, priceofprod=@price , kindofprod=@kind , [date]=@date where ID= @id",con);
-            //cmd.Connection = con;
-            
-
-            //cmd.CommandText = ;
-            cmd.Parameters.AddWithValue("@id", code);
-            cmd.Parameters.AddWithValue("@count", count);
-            cmd.Parameters.AddWithValue("@price", price);
-            cmd.Parameters.AddWithValue("@kind", kind);
-            cmd.Parameters.AddWithValue("@date", dateTimePicker1.Text.ToString());
-            cmd.Parameters.AddWithValue("@name", name);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("تم التعديل بنجاح", "Congrats");
             con.Close();
+            try
+            {
+                if (String.IsNullOrEmpty(textBox1.Text) || String.IsNullOrEmpty(textBox4.Text) || String.IsNullOrEmpty(textBox5.Text) || String.IsNullOrEmpty(textBox2.Text) || String.IsNullOrEmpty(textBox3.Text))
+            {
+                MessageBox.Show("قيم مفقودة ارجو التأكد من القيم");
+            }
+            else{ 
+                    code = textBox5.Text;
+                    name = textBox1.Text;
+                    count = int.Parse(textBox2.Text);
+                    kind = textBox4.Text;
+                    price = double.Parse(textBox3.Text);
+                if (price <= 0 || count <= 0)
+                {
+                    MessageBox.Show("خطأ في قيم السعر او العدد يرجي التعديل ");
+                }
+                else
+                {
+
+                    con.Open();
+                    cmd = new OleDbCommand("update product set [prodname]=@name, [numofprod]=@count, [priceofprod]=@price , [kindofprod]=@kind , [date]=@date where [ID]= @id", con);
+                    //cmd.Connection = con;
+                    //cmd.CommandText = ;
+                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Parameters.AddWithValue("@count", count);
+                    cmd.Parameters.AddWithValue("@price", price);
+                    cmd.Parameters.AddWithValue("@kind", kind);
+                    cmd.Parameters.AddWithValue("@date", dateTimePicker1.Text.ToString());
+                    cmd.Parameters.AddWithValue("@id", code);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("تم التعديل بنجاح", "Congrats");
+                    con.Close();
+                }
+            }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            finally
+            {
+                con.Close();
+            }
 
         }
 
         private void EditProduct_Load(object sender, EventArgs e)
         {
-
-           
 
             con.Open();
             cmd = new OleDbCommand();
@@ -95,33 +104,12 @@ namespace SuperMarket
             comboBox1.DataSource = bs;
             comboBox1.DisplayMember = "prodname";
             comboBox1.ValueMember = "priceofprod";
-
-            //  textBox4.DataBindings.Add("Text", ds.Tables[0], "price");
-            //textBox7.DataBindings.Add("Text", ds.Tables[0].Rows[0][3], "code");
-
-            //OleDbCommand cmd11 = new OleDbCommand();
-            //cmd11.Connection = con;
-            //cmd11.CommandText = "select * from bill order by id desc limit 1";
-            //dr = cmd11.ExecuteReader();
-            //dt = new DataTable();
-            //dt.Load(dr);
-            //int m = int.Parse(dt.Rows[0][0].ToString());
-            //m = m + 1;
-            //textBox1.Text = m.ToString();
             con.Close();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //OleDbCommand cmd4 = new OleDbCommand(); 
-            //cmd4.Connection = con;
-            //cmd4.CommandText = "select * from product where prodname='" + comboBox1.SelectedItem.ToString() + "'";
-            //dt = new DataTable();
-            //dr = cmd4.ExecuteReader();
-            //dt.Load(dr);
-            //textBox1.Text = dt.Rows[0][1].ToString();
-            //con.Close();
-
+            
 
         }
 
@@ -129,7 +117,6 @@ namespace SuperMarket
         {
             cmd = new OleDbCommand();
             cmd.Connection = con;
-
             cmd.CommandText = " select * from product where prodname= @name";
             cmd.Parameters.AddWithValue("@name", comboBox1.Text);
             try

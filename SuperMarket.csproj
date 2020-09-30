@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>SuperMarket</RootNamespace>
     <AssemblyName>SuperMarket</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -69,11 +70,23 @@
     <Compile Include="Adding.Designer.cs">
       <DependentUpon>Adding.cs</DependentUpon>
     </Compile>
-    <Compile Include="Bills.cs">
+    <Compile Include="bill_update.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bills.Designer.cs">
-      <DependentUpon>Bills.cs</DependentUpon>
+    <Compile Include="bill_update.Designer.cs">
+      <DependentUpon>bill_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="store.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="store.Designer.cs">
+      <DependentUpon>store.cs</DependentUpon>
+    </Compile>
+    <Compile Include="bill_table.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="bill_table.Designer.cs">
+      <DependentUpon>bill_table.cs</DependentUpon>
     </Compile>
     <Compile Include="DbHelper.cs" />
     <Compile Include="Delete.cs">
@@ -107,17 +120,17 @@
     <Compile Include="Search.Designer.cs">
       <DependentUpon>Search.cs</DependentUpon>
     </Compile>
-    <Compile Include="Store.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Store.Designer.cs">
-      <DependentUpon>Store.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Adding.resx">
       <DependentUpon>Adding.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Bills.resx">
-      <DependentUpon>Bills.cs</DependentUpon>
+    <EmbeddedResource Include="bill_update.resx">
+      <DependentUpon>bill_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="store.resx">
+      <DependentUpon>store.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bill_table.resx">
+      <DependentUpon>bill_table.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Delete.resx">
       <DependentUpon>Delete.cs</DependentUpon>
@@ -135,9 +148,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Search.resx">
       <DependentUpon>Search.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Store.resx">
-      <DependentUpon>Store.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
